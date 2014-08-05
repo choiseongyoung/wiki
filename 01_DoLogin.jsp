@@ -25,7 +25,7 @@ if(uemail == ""){ %>
 		conn = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
 		stmt = conn.createStatement();
 
-		String QueryStr = "select idx, nick from member where email = '" + uemail + "' and pw = '" + upw + "'";
+		String QueryStr = "select idx, nick, authentiCode from member where email = '" + uemail + "' and pw = '" + upw + "'";
 		rs = stmt.executeQuery(QueryStr);
 
 		if(rs.next()){
@@ -36,12 +36,20 @@ if(uemail == ""){ %>
 				session.invalidate();
 			}
 			session = request.getSession(true);
+			
+			if(rs.getString(3) != null){
+%>
+				<jsp:forward page="01_Login.jsp?err=authention"/>
+<%
+			}
+
 			session.setAttribute("useridx",rs.getString(1));
 			session.setAttribute("usernick",rs.getString(2));
 			response.sendRedirect("index.jsp");
+
 		}else{
 			//로그인 실패 처리
-			response.sendRedirect("01_Login.jsp?err=failed"+uemail+"/"+upw);		
+			response.sendRedirect("01_Login.jsp?err=failed");		
 		}
 
 		rs.close(); 

@@ -1,23 +1,18 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" session="true"%>
-<%
-//한글처리
-request.setCharacterEncoding("utf-8");
-//로그인 관련
-String UserIdx = (String)session.getAttribute("useridx");
-String UserNick = (String)session.getAttribute("usernick");
-%>
+
 <!DOCTYPE html>
 <html>
 	<head>
 		<link href="assets/css/bootstrap.css" rel="stylesheet">
 		<link href="assets/css/custom-style.css" rel="stylesheet">
+
 	<script>
 var emailRegex=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;  
 var CheckedId;
 var idDupCheckRes;
 var idDupCheckId;
 var idDupCheckkXhr;
-
+var uemail
 var submitRegitXhr;
 var submitRegitResResult;
 
@@ -76,15 +71,15 @@ function submitRegitRes(){
 				alert("회원가입 실패\n Error : 비밀번호 불일치");
 			}else if(submitRegitResResult == "sign up fail"){
 				alert("회원가입 실패\n Error : DB 입력 실패");
+			}else if(submitRegitResResult == "email send fail"){
+				alert("회원가입 실패\n Error : 이메일 발송 실패");
 			}else{
-				alert("회원가입 성공");
-				AuthenticationMailSending(submitRegitResResult);
+				alert("회원가입 성공\n 가입하신 이메일로 인증메일이 발송되었습니다.");
 				location.replace("index.jsp");
 			}
 		}
 	}
 }
-var uemail
 function submitRegitform(FormElement){
 	var unick = document.getElementById("unick").value;
 	var upw = document.getElementById("upw").value;
@@ -123,60 +118,11 @@ function submitRegitform(FormElement){
 		submitRegitXhr.send("unick="+unick+"&upw="+upw+"&upw2="+upw2+"&uemail="+uemail);
 	}
 }
-var AuthenticationMailXhr;
-var AuthenticationMailContents = "이메일 주소를 인증하시려면 아래 버튼을 클릭해 주세요.<br>" 
-								+ "<input type='button' value='이메일 주소 인증' /><br>"
-								+ "위 버튼을 클릭해 이메일 주소를 인증하실 수 없는 경우, 아래 링크를 클릭하거나, "
-								+ "복사하여 웹 브라우저의 주소창에 붙여넣으세요.<br>";
-								+ "http://54.92.39.109/00_Authenticate.jsp?email=email&AuthentiCode="+AuthentiCode;
-								
-function AuthenticationMailSending(AuthentiCode){
-	if(window.ActiveXObject){
-		AuthenticationMailXhr = new ActiveXObject("Microsoft.XMLHTTP");
-	}else{
-		AuthenticationMailXhr = new XMLHttpRequest();
-	}
-	AuthenticationMailXhr.open("post", "00_MailModule.jsp", true);
-	AuthenticationMailXhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	AuthenticationMailXhr.send("EmailTo="+uemail+"&EmailTitle="+"Sam Wit Wiki 회원가입 인증"+"&EmailContents="+AuthentiCode);
-}
+
 	</script>
 	</head>
-	<body>
-			<header class="navbar navbar-static-top bs-docs-nav navbar-inverse" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="index.jsp">샘 윗 위키</a>
-				</div>
-				<form class="navbar-form navbar-left" role="search">
-					<div class="form-group">
-						<div class="input-group">
-							  <input type="text" class="form-control">
-							  <span class="input-group-btn">
-								<button class="btn btn-default" type="button">Go!</button>
-							  </span>
-						</div>
-					</div>
-				</form>
-
-				<ul class="nav navbar-nav navbar-right">
-<%				if(UserIdx == null){
-					out.println("<li><a href='01_Login.jsp'>로그인</a></li>");
-				}else{
-					out.println("<li><a href='#'>"+UserNick+"님</a></li>");
-					//TODO:마이 페이지 구현시 링크
-					out.println("<li><a href='02_Logout.jsp'>로그아웃</a></li>");
-				} %>
-					<li><a href="00_JoinToMember.jsp">회원가입</a></li>
-				</ul>
-			</div>
-		</header>
+	<body>		
+		<%@include file="header.jsp"%>
 		<div class="container login-block">
 			<form action="00_DoJoinToMember.jsp" method="post" name="regitform" target="bodyFrame">
 				<div class="panel panel-success">

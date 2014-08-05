@@ -1,11 +1,4 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" session="true"%>
-<%
-//한글처리
-request.setCharacterEncoding("utf-8");
-//로그인 관련
-String UserIdx = (String)session.getAttribute("useridx");
-String UserNick = (String)session.getAttribute("usernick");
-%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -22,11 +15,15 @@ function LoginErr(){
 String errCode = request.getParameter("err");
 if(errCode == null){
 }else if(errCode.equals("id_lose")){
-	out.print("alert('이메일을 확인해주세요');");
+	out.print("alert('이메일 전달 실패');");
 }else if(errCode.equals("pw_lose")){
-	out.print("alert('비밀번호를 확인해주세요');");
+	out.print("alert('비밀번호 전달 실패');");
 }else if(errCode.equals("failed")){
-	out.print("alert('일치하는 정보가 없습니다.');");
+	out.print("document.getElementById('ErrAlertBlock').style.display = 'block';");	
+	out.print("document.getElementById('ErrAlertBlock').innerHTML = '<strong>로그인 에러! </strong> <br>일치하는 정보가 없습니다. <br>이메일과 비밀번호를 확인해주세요.';");
+}else if(errCode.equals("authention")){
+	out.print("document.getElementById('ErrAlertBlock').style.display = 'block';");
+	out.print("document.getElementById('ErrAlertBlock').innerHTML = '<strong>로그인 에러! </strong> <br>이메일 인증이 필요합니다. <br>가입하신 이메일로 발송된 인증메일을 확인해주세요';");
 }
 %>
 }
@@ -45,48 +42,15 @@ function DoLogin(){
 	}else if(upw == ""){
 		alert("비밀번호를 입력해주세요");
 	}else{
-
 		document.getElementById("LoginForm").submit();
 	}
 }
 
 </script>
 	<body onLoad="LoginErr()">
-		<header class="navbar navbar-static-top bs-docs-nav navbar-inverse" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="index.jsp">샘 윗 위키</a>
-				</div>
-				<form class="navbar-form navbar-left" role="search">
-					<div class="form-group">
-						<div class="input-group">
-							  <input type="text" class="form-control">
-							  <span class="input-group-btn">
-								<button class="btn btn-default" type="button">Go!</button>
-							  </span>
-						</div>
-					</div>
-				</form>
-
-				<ul class="nav navbar-nav navbar-right">
-<%				if(UserIdx == null){
-					out.println("<li><a href='01_Login.jsp'>로그인</a></li>");
-				}else{
-					out.println("<li><a href='#'>"+UserNick+"님</a></li>");
-					//TODO:마이 페이지 구현시 링크
-					out.println("<li><a href='02_Logout.jsp'>로그아웃</a></li>");
-				} %>
-					<li><a href="00_JoinToMember.jsp">회원가입</a></li>
-				</ul>
-			</div>
-		</header>
+		<%@include file="header.jsp"%>
 		<div class="container login-block">
+			<div class="alert alert-danger" id="ErrAlertBlock" style="display:none">alert</div>
 			<form action="01_DoLogin.jsp" method="post" id="LoginForm" name="LoginForm">
 				<div class="panel panel-success">
 					<div class="panel-heading">

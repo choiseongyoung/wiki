@@ -1,6 +1,5 @@
-<%@ page  contentType="text/html;charset=utf-8" 
-import="java.lang.*, java.util.*, java.util.Date, java.text.*, java.text.SimpleDateFormat, java.text.ParseException"
-import="java.sql.*, java.net.*, javax.mail.*, javax.mail.internet.*, javax.activation.*" session="true"
+<%@ page  contentType="text/html;charset=utf-8" import="java.sql.*" session="true" %>
+<%
 request.setCharacterEncoding("utf-8");
 
 String email = request.getParameter("email");
@@ -8,7 +7,6 @@ String AuthentiCode = request.getParameter("AuthentiCode");
 Connection conn= null;
 Statement stmt = null;
 ResultSet rs   = null;
-
 
 try {
 		Class.forName("com.mysql.jdbc.Driver");
