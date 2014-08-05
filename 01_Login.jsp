@@ -1,9 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8" session="false" %>
-
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" session="true"%>
+<%
+//한글처리
+request.setCharacterEncoding("utf-8");
+//로그인 관련
+String UserIdx = (String)session.getAttribute("useridx");
+String UserNick = (String)session.getAttribute("usernick");
+%>
+<!DOCTYPE html>
 <html>
-<head>
-<title>로그인</title>
-</head>
+	<head>
+		<link href="assets/css/bootstrap.css" rel="stylesheet">
+		<link href="assets/css/custom-style.css" rel="stylesheet">
+	</head>
 <script>
 var LoginXhr;
 var LoginXhrResult;
@@ -23,7 +31,7 @@ if(errCode == null){
 %>
 }
 function goJoin() {
-	parent.location.replace("00_JoinToMember.jsp");
+	location.href="00_JoinToMember.jsp";
 }
 function DoLogin(){
 	var uemail = document.getElementById("uemail").value;
@@ -37,59 +45,77 @@ function DoLogin(){
 	}else if(upw == ""){
 		alert("비밀번호를 입력해주세요");
 	}else{
-		/*
-		if(window.ActiveXObject){
-			LoginXhr = new ActiveXObject("Microsoft.XMLHTTP");
-		}else{
-			LoginXhr = new XMLHttpRequest();
-		}
-		LoginXhr.onreadystatechange = LoginXhrRes;
 
-		LoginXhr.open("post", "01_DoLogin.jsp", true);
-		LoginXhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-		LoginXhr.send("uemail="+uemail+"&upw="+upw);
-		*/
 		document.getElementById("LoginForm").submit();
 	}
 }
-/*
-function LoginXhrRes(){
-	if(LoginXhr.readyState == 4) {
-		if(LoginXhr.status == 200) {
-			LoginXhrResult = LoginXhr.responseText.replace(/^[\s\xA0]+/,"").replace(/[\s\xA0]+$/,"");;
-			
-			if(LoginXhrResult == "false"){
-				alert("일치하는 정보가 없습니다.");
-				document.getElementById("upw").value = "";
-				document.getElementById("upw").focus;
-				
-			}
-
-		}
-	}
-}*/
 
 </script>
-<body onLoad="LoginErr()">
-	<h1>LOGIN PAGE</h1>
-	<div class="wrapper">
-	<form action="01_DoLogin.jsp" method="post" id="LoginForm" name="LoginForm">
-	<div class="input_row" id="id_box">
-		<span>
-			email <input type="text" id="uemail" name="uemail" class="input_box"			
-			onkeydown="javascript: if (event.keyCode == 13) {DoLogin();}">
-		</span>
-	</div>
-	<div class="input_row" id="psw_box">
-		<span>
-			PW <input type="password" id="upw" name="upw" class="input_box" 
-			onkeydown="javascript: if (event.keyCode == 13) {DoLogin();}">
-		</span>
-	</div>
-	<input type="button" value="로그인" name="submitbtn" id="loginbutton" onClick="DoLogin()">
-	<input type="button" value="아이디/비밀번호 찾기" id="FindIdPw" name="FindIdPw" id="findbutton">
-	<input type="button" value="회원가입" name="delete" onClick="goJoin()" id="joinbutton">
-	</form>
-	</div>
-</body>
+	<body onLoad="LoginErr()">
+		<header class="navbar navbar-static-top bs-docs-nav navbar-inverse" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.jsp">샘 윗 위키</a>
+				</div>
+				<form class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<div class="input-group">
+							  <input type="text" class="form-control">
+							  <span class="input-group-btn">
+								<button class="btn btn-default" type="button">Go!</button>
+							  </span>
+						</div>
+					</div>
+				</form>
+
+				<ul class="nav navbar-nav navbar-right">
+<%				if(UserIdx == null){
+					out.println("<li><a href='01_Login.jsp'>로그인</a></li>");
+				}else{
+					out.println("<li><a href='#'>"+UserNick+"님</a></li>");
+					//TODO:마이 페이지 구현시 링크
+					out.println("<li><a href='02_Logout.jsp'>로그아웃</a></li>");
+				} %>
+					<li><a href="00_JoinToMember.jsp">회원가입</a></li>
+				</ul>
+			</div>
+		</header>
+		<div class="container login-block">
+			<form action="01_DoLogin.jsp" method="post" id="LoginForm" name="LoginForm">
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> 샘 윗 위키 / 로그인</h3>
+					</div>
+					<div class="panel-body">
+						<div class="input-group btm-margin-10">
+						  <span class="input-group-addon">이메일</span>
+						  <input type="text" id="uemail" name="uemail" class="form-control" placeholder="E-mail">
+						</div>
+						<div class="input-group btm-margin-10">
+						  <span class="input-group-addon">비밀번호</span>
+						  <input type="password" id="upw" name="upw" class="form-control" placeholder="Password">
+						</div>
+						<div class="container">
+							<div class="btn-group">
+								<input type="button" class="btn btn-default" value="로그인 유지" id="FindIdPw" name="FindIdPw">
+								<input type="button" class="btn btn-success" value="로그인"  name="submitbtn" id="loginbutton" onClick="DoLogin()">
+								<input type="button" class="btn btn-default" value="아이디/비밀번호 찾기" id="FindIdPw" name="FindIdPw">
+								<input type="button" class="btn btn-default" value="회원가입" name="delete" onClick="goJoin()" id="joinbutton">
+							</div>
+						</div>
+					</div>	
+				</div>
+			</form>
+		</div>
+		<script src="//code.jquery.com/jquery.js"></script>
+		<script src="assets/js/bootstrap.js"></script>
+	</body>
 </html>
+
+

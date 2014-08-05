@@ -41,7 +41,7 @@ if(uemail == ""){ %>
 			response.sendRedirect("index.jsp");
 		}else{
 			//로그인 실패 처리
-			response.sendRedirect("01_Login.jsp?err=failed");		
+			response.sendRedirect("01_Login.jsp?err=failed"+uemail+"/"+upw);		
 		}
 
 		rs.close(); 
