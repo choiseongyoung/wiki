@@ -28,13 +28,16 @@ ResultSet rs   = null;
 %>
 <!DOCTYPE html>
 <html>
+	<head>
+	</head>
+	<body>
 		<%@include file="header.jsp"%>
-
+	
 		<div class="row">
 			<div class="jumbotron">
 				<div class="container">
 					<h1>Sam wit wiki</h1>
-					<p>make shared knowledge</p>
+					<p> <span class="glyphicon glyphicon-cloud-upload"></span> make shared knowledge for you</p>
 					<div class="row">
 						<div class="container">
 							<ul class="nav nav-pills" role="tablist">

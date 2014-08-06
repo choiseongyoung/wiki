@@ -148,7 +148,7 @@ function submitRegitform(FormElement){
 						  <input type="password" id="upw2" class="form-control" placeholder="Password confirm">
 						</div>
 
-						<div class="container">
+						<div class="text-center">
 							<div class="btn-group">
 								<input type="button" class="btn btn-success" value="가입하기" 
 									id="submitbtn" onclick="submitRegitform(this)">
@@ -159,6 +159,10 @@ function submitRegitform(FormElement){
 					</div>	
 				</div>
 			</form>
+			<div class="alert alert-info"><h3><span class="glyphicon glyphicon-certificate"></span> 회원가입 안내</h3><br>
+				회원가입시 본인의 이메일을 입력해주세요<br>
+				입력된 이메일로 본인인증 메일이 발송됩니다.<br>
+				인증 메일 재발송은 <a href="#">여기</a>를 눌러주세요.</div>
 		</div>
 		<script src="//code.jquery.com/jquery.js"></script>
 		<script src="assets/js/bootstrap.js"></script>
