@@ -36,7 +36,7 @@ try {
 
 		if(rs.next()){
 			//인증 성공
-			String sql2 = "UPDATE member SET authentiCode='' WHERE idx='"+rs.getString(1)+"' ";
+			String sql2 = "UPDATE member SET authentiCode='pass' WHERE idx='"+rs.getString(1)+"' ";
 			
 			out.println("<div class='alert alert-success col-md-4 col-md-offset-4 top_margin-10'><h3><span class='glyphicon glyphicon-ok-sign'></span> 인증 성공!</h3><br>"+rs.getString(2)+"님의 이메일 인증이 이루어졌습니다.<br>이제 정상적인 이용이 가능합니다.</div>");
 			int Sql2Result = stmt.executeUpdate(sql2);

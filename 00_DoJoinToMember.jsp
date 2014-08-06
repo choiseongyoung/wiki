@@ -33,7 +33,7 @@ if(id == ""){
 		Statement stmt = conn.createStatement();
 
 		String AuthentiCode = "";
-		for(int i = 0; i<8 ; i++){
+		for(int i = 0; i<20 ; i++){
 			AuthentiCode += (char)((Math.random() * 26) + 97);
 		}
 

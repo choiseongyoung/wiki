@@ -37,7 +37,7 @@ if(uemail == ""){ %>
 			}
 			session = request.getSession(true);
 			
-			if(rs.getString(3) != null){
+			if(!rs.getString(3).equals("pass")){
 %>
 				<jsp:forward page="01_Login.jsp?err=authention"/>
 <%
