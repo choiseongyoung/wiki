@@ -1,4 +1,4 @@
-<%@ page  contentType="text/html;charset=utf-8" import="java.sql.*" session="true" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" session="true"%>
 <%
 request.setCharacterEncoding("utf-8");
 
@@ -14,16 +14,19 @@ try {
 		String DB_USER = "root";
 		String DB_PASSWORD= "greatwebs!";
 
-		Connection conn = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
-		Statement stmt = conn.createStatement();
+		conn = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+		stmt = conn.createStatement();
 
 		String sql1 = "select idx from member where email = '" + email + "' and authentiCode = '" + AuthentiCode + "'";
-		rs = stmt.executeQuery(QueryStr);
+		rs = stmt.executeQuery(sql1);
 
 		if(rs.next()){
 			//인증 성공
-			String sql2 = "UPDATE member SET authentiCode='' WHERE idx='24' ";
+			String sql2 = "UPDATE member SET authentiCode='' WHERE idx='"+rs.getString(1)+"' ";
 			int Sql2Result = stmt.executeUpdate(sql2);
+			
+			response.sendRedirect("
+");
 		}else{
 			//인증 실패
 		}
@@ -39,3 +42,4 @@ try {
 		out.println(e.toString());
 		return;
 	}
+%>
