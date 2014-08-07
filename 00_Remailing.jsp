@@ -25,10 +25,22 @@ function SubmitRemailing(){
 		document.getElementById("remailingForm").submit();
 	}
 }
-
+function loadCheck(){
+	var Result = "<%= request.getParameter("result")%>";
+	if(Result == null){
+	}else if(Result == "notfoundemail"){
+		alert('이메일 전달1');
+	}else if(Result =="sendsucc"){
+		alert('이메일 전달1');
+	}else if(Result == "sendfail"){
+		alert('이메일 전달1');
+	}else if(Result =="already"){
+		alert('이메일 전달1');
+	}
+}
 		</script>
 	</head>
-	<body>		
+	<body onLoad="loadCheck()">		
 		<%@include file="header.jsp"%>
 		<div class="container login-block">
 			<form action="00_DoRemailing.jsp" method="post" id="remailingForm">
