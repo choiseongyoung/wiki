@@ -29,13 +29,18 @@ function loadCheck(){
 	var Result = "<%= request.getParameter("result")%>";
 	if(Result == null){
 	}else if(Result == "notfoundemail"){
-		alert('이메일 전달1');
+		document.getElementById('ErrAlertBlock').style.display = 'block';
+		document.getElementById('ErrAlertBlock').innerHTML = '<strong>재전송 에러!</strong> <br>일치하는 정보가 없습니다. <br>이메일를 확인해주세요.';
 	}else if(Result =="sendsucc"){
-		alert('이메일 전달1');
+		document.getElementById('ErrAlertBlock').style.display = 'block';
+		document.getElementById('ErrAlertBlock').className = 'alert alert-succes';
+		document.getElementById('ErrAlertBlock').innerHTML = '<strong>재전송 성공!</strong> <br>인증메일이 재전송되었습니다. <br>이메일를 확인해주세요.';
 	}else if(Result == "sendfail"){
-		alert('이메일 전달1');
+		document.getElementById('ErrAlertBlock').style.display = 'block';
+		document.getElementById('ErrAlertBlock').innerHTML = '<strong>재전송 에러!</strong> <br>알수 없는 에러입니다.';
 	}else if(Result =="already"){
-		alert('이메일 전달1');
+		document.getElementById('ErrAlertBlock').style.display = 'block';
+		document.getElementById('ErrAlertBlock').innerHTML = '<strong>재전송 에러!</strong> <br>이미 인증된 메일입니다..';
 	}
 }
 		</script>
@@ -43,6 +48,7 @@ function loadCheck(){
 	<body onLoad="loadCheck()">		
 		<%@include file="header.jsp"%>
 		<div class="container login-block">
+			<div class="alert alert-danger" id="ErrAlertBlock" style="display:none"></div>
 			<form action="00_DoRemailing.jsp" method="post" id="remailingForm">
 				<div class="panel panel-success">
 					<div class="panel-heading">
