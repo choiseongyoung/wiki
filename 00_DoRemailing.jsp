@@ -23,7 +23,7 @@ if(email == ""){
 		ResultSet rs;
 
 		String sql1 = "select AuthentiCode from member where email = '" + email + "'";
-		rs = stmt.executeUpdate(sql1);
+		rs = stmt.executeQuery(sql1);
 
 		if(rs.next()){ // 이메일이 존재할때
 			if(rs.getString(1).equals("pass")){
@@ -33,7 +33,7 @@ if(email == ""){
 				String Contents =  "<h1>샘 윗 위키에 회원가입 하신것을 축하드립니다.</h1><br>"
 						+ "이메일 주소를 인증하시려면 아래 버튼을 클릭해 주세요.<br>"
 						+ "만약 본인이 회원가입을 하신것이 아니라면 인증하지 마시기 바랍니다.<br>"
-						+ "<input type='button' value='이메일 주소 인증' onclick='location.href=samwitwiki.org/wiki/00_Authenticate.jsp?AuthentiCode=" + AuthentiCode
+						+ "<input type='button' value='이메일 주소 인증' onclick='location.href=samwitwiki.org/wiki/00_Authenticate.jsp?AuthentiCode=" + rs.getString(1)
 						+ "&email=" + email + "' /> <br>"
 						+ "위 버튼을 클릭해 이메일 주소를 인증하실 수 없는 경우,<br>아래 링크를 클릭하거나, "
 						+ "복사하여 웹 브라우저의 주소창에 붙여넣으세요.<br>"
