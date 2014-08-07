@@ -33,7 +33,7 @@ function loadCheck(){
 		document.getElementById('ErrAlertBlock').innerHTML = '<strong>재전송 에러!</strong> <br>일치하는 정보가 없습니다. <br>이메일를 확인해주세요.';
 	}else if(Result =="sendsucc"){
 		document.getElementById('ErrAlertBlock').style.display = 'block';
-		document.getElementById('ErrAlertBlock').className = 'alert alert-succes';
+		document.getElementById('ErrAlertBlock').className = 'alert alert-success';
 		document.getElementById('ErrAlertBlock').innerHTML = '<strong>재전송 성공!</strong> <br>인증메일이 재전송되었습니다. <br>이메일를 확인해주세요.';
 	}else if(Result == "sendfail"){
 		document.getElementById('ErrAlertBlock').style.display = 'block';
@@ -57,7 +57,7 @@ function loadCheck(){
 					<div class="panel-body">
 						<div class="input-group btm-margin-10">
 						  <span class="input-group-addon">이메일</span>
-						  <input type="email" id="uemail" class="form-control" placeholder="E-mail">
+						  <input type="email" name="uemail" id="uemail" class="form-control" placeholder="E-mail">
 						</div>
 
 						<div class="text-center">

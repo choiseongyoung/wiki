@@ -9,7 +9,7 @@ String email = request.getParameter("uemail");
 
 if(email == ""){
 %>
-				<jsp:forward page="00_Remailing.jsp?result=notfoundemail"/>
+	<jsp:forward page="00_Remailing.jsp?result=notemail"/>
 <%
 }else{
 	try {
@@ -22,11 +22,11 @@ if(email == ""){
 		Statement stmt = conn.createStatement();
 		ResultSet rs;
 
-		String sql1 = "select AuthentiCode from member where email = '" + email + "'";
+		String sql1 = "select authentiCode from member where email = '" + email + "'";
 		rs = stmt.executeQuery(sql1);
 
 		if(rs.next()){ // 이메일이 존재할때
-			if(rs.getString(1).equals("pass")){
+			if(!rs.getString(1).equals("pass")){
 				String mailFrom = "webs.programming@gmail.com";
 				String Sender = "샘 윗 위키";
 				String title = "Sam wit wiki 이메일 주소 인증";
