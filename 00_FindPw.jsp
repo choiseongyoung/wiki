@@ -38,15 +38,17 @@ function CheckIgIllegalInput(){
 function findPwXhrRes(){
 	if( findPwXhr.readyState == 4) {
 		if( findPwXhr.status == 200) {
-			findPwResult = idDupCheckkXhr.responseText.replace(/^[\s\xA0]+/,"").replace(/[\s\xA0]+$/,"");;
+			findPwResult = findPwXhr.responseText.replace(/^[\s\xA0]+/,"").replace(/[\s\xA0]+$/,"");;
 			
 			if(findPwResult == "true"){
+				javascript:window.scrollTo(0,0);
 				document.getElementById('ErrAlertBlock').className = 'alert alert-success';
-				out.print("document.getElementById('ErrAlertBlock').style.display = 'block';");	
-				out.print("document.getElementById('ErrAlertBlock').innerHTML = '<strong>비밀번호 발송 성공! </strong> <br>해당 메일주소로 새로운 임시 비밀번호를 발송했습니다.<br>발송된 임시 비밀번호로 로그인 하시여 비밀번호를 변경해주세요.';");
+				document.getElementById('ErrAlertBlock').style.display = 'block'	
+				document.getElementById('ErrAlertBlock').innerHTML = '<strong>비밀번호 발송 성공! </strong> <br>해당 메일주소로 새로운 임시 비밀번호를 발송했습니다.<br>발송된 임시 비밀번호로 로그인 하시여 비밀번호를 변경해주세요.';
 			}else{
-				out.print("document.getElementById('ErrAlertBlock').style.display = 'block';");	
-				out.print("document.getElementById('ErrAlertBlock').innerHTML = '<strong>비밀번호 찾기 실패! </strong> <br>일치하는 정보가 없습니다. <br>이메일과 닉네임을 확인해주세요.';");
+				javascript:window.scrollTo(0,0);
+				document.getElementById('ErrAlertBlock').style.display = 'block';
+				document.getElementById('ErrAlertBlock').innerHTML = '<strong>비밀번호 찾기 실패! </strong> <br>일치하는 정보가 없습니다. <br>이메일과 닉네임을 확인해주세요.';
 			}
 		}
 	}
