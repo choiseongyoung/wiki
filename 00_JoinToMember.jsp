@@ -10,8 +10,15 @@
 var emailRegex=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;  
 var CheckedId;
 var idDupCheckRes;
-var idDupCheckId;
+var DupCheckId;
 var idDupCheckkXhr;
+
+var CheckedNick;
+var NickDupCheckRes;
+var DupCheckNick;
+var NickDupCheckkXhr;
+
+var CheckPwLength;
 var uemail
 var submitRegitXhr;
 var submitRegitResResult;
@@ -46,7 +53,40 @@ function idDuplicateCheckRes(){
 				alert(CheckedId + "는 이미 사용중인 이메일입니다.");
 			}else{
 				alert(CheckedId + "는 사용하실 수 있습니다.");
-				idDupCheckId = CheckedId;
+				DupCheckId = CheckedId;
+			}
+		}
+	}
+}
+function NickDuplicateCheck(){
+	CheckedNick = document.getElementById("unick").value;
+	if(CheckedNick == ""){
+		alert("닉네임을 입력해주세요");
+	}else{
+		if(window.ActiveXObject){
+			NickDupCheckkXhr = new ActiveXObject("Microsoft.XMLHTTP");
+		}else{
+			NickDupCheckkXhr = new XMLHttpRequest();
+		}
+		NickDupCheckkXhr.onreadystatechange = NickDuplicateCheckRes;
+
+		NickDupCheckkXhr.open("get", "00_NickDupCheck.jsp?unick="+CheckedNick, false);
+		NickDupCheckkXhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		NickDupCheckkXhr.send(null);
+	}
+
+}
+
+function NickDuplicateCheckRes(){
+	if(NickDupCheckkXhr.readyState == 4) {
+		if(NickDupCheckkXhr.status == 200) {
+			NickDupCheckRes = NickDupCheckkXhr.responseText.replace(/^[\s\xA0]+/,"").replace(/[\s\xA0]+$/,"");;
+			
+			if(NickDupCheckRes == "false"){
+				alert(CheckedNick + "는 이미 사용중인 닉네임입니다.");
+			}else{
+				alert(CheckedNick + "는 사용하실 수 있습니다.");
+				DupCheckNick = CheckedNick;
 			}
 		}
 	}
@@ -85,7 +125,7 @@ function submitRegitform(FormElement){
 	var upw = document.getElementById("upw").value;
 	var upw2 = document.getElementById("upw2").value;
 	uemail = document.getElementById("uemail").value;
-
+	
 
 	if(uemail == ""){
 		alert("이메일을 입력해주세요.");
@@ -101,8 +141,10 @@ function submitRegitform(FormElement){
 	}else if(upw2 == ""){
 		alert("비밀번호를 다시 입력해주세요.");
 		document.getElementById('upw2').focus();
-	}else if(idDupCheckRes != "true" || uemail != idDupCheckId){
+	}else if(idDupCheckRes != "true" || uemail != DupCheckId){
 		alert("아이디 중복확인을 확인해주세요.");
+	}else if(NickDupCheckRes != "true" || unick != DupCheckNick){
+		alert("닉네임 중복확인을 확인해주세요.");
 	}else if(upw != upw2){
 		alert("비밀번호를 확인을 확인해주세요.");
 	}else{
@@ -138,6 +180,7 @@ function submitRegitform(FormElement){
 						<div class="input-group btm-margin-10">
 						  <span class="input-group-addon">닉네임</span>
 						  <input type="text" id="unick" class="form-control" placeholder="Nickname">
+						  <span class="input-group-addon" onclick="NickDuplicateCheck()">중복확인</span>
 						</div>
 						<div class="input-group btm-margin-10">
 						  <span class="input-group-addon">비밀번호</span>
