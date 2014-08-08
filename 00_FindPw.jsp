@@ -66,17 +66,15 @@ function findPwXhrRes(){
 						<div class="input-group btm-margin-10">
 						  <span class="input-group-addon">이메일</span>
 						  <input type="email" id="uemail" class="form-control" placeholder="E-mail">
-						  <span class="input-group-addon" onclick="idDuplicateCheck()">중복확인</span>
 						</div>
 						<div class="input-group btm-margin-10">
 						  <span class="input-group-addon">닉네임</span>
 						  <input type="text" id="unick" class="form-control" placeholder="Nickname">
-						  <span class="input-group-addon" onclick="NickDuplicateCheck()">중복확인</span>
 						</div>
 						<div class="text-center">
 							<div class="btn-group">
 								<input type="button" class="btn btn-success" value="비번찾기" 
-									id="submitbtn" onclick="submitRegitform()">
+									id="submitbtn" onclick="CheckIgIllegalInput()">
 								<input type="button" class="btn btn-default" value="뒤로가기" 
 									name="resetbtn" id="resetbtn" onclick="javascript:history.go(-1);">
 							</div>

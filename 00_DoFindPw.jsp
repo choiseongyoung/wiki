@@ -13,7 +13,6 @@ String DB_PASSWORD= "greatwebs!";
 Connection conn= null;
 Statement stmt = null;
 ResultSet rs   = null;
-ResultSet rs2   = null;
 
 String uemail = new String(request.getParameter("uemail").getBytes("8859_1"),"euc-kr");
 String unick = new String(request.getParameter("unick").getBytes("8859_1"),"euc-kr");
@@ -27,19 +26,20 @@ try {
     rs = stmt.executeQuery(QueryStr);
 
 		if(rs.next()){
-			String RandomStr;
+			String RandomStr = "";
 			for(int i = 0; i<20 ; i++){
 				RandomStr += (char)((Math.random() * 26) + 97);
 			}
 			String QueryStr2 = "UPDATE member SET pw='"+RandomStr+"' WHERE idx='"+rs.getString(1)+"' ";
 
-		    rs2 = stmt.executeQuery(QueryStr2);
+		    stmt.executeUpdate(QueryStr2);
 
 			String mailFrom = "webs.programming@gmail.com";
 			String Sender = "샘 윗 위키";
 			String title = "Sam wit wiki 비밀번호 재설정 안내!";
 			String Contents =  "<h1>샘 윗 위키에서 비밀번호 찾기를 이용하셨습니다.</h1><br>"
 							+ "새로운 설정된 비밀번호 : " + RandomStr + "<br>"
+							+ "발송된 임시 비밀번호로 로그인 하시여 비밀번호를 변경해주세요.";
 
 			Properties props = new Properties();
 			props.put("mail.smtp.host", "172.31.7.18");
@@ -50,7 +50,7 @@ try {
 				MimeMessage msg = new MimeMessage(msgSession);
 				InternetAddress from = new InternetAddress(mailFrom, Sender, "euc-kr");
 				msg.setFrom(from);
-				InternetAddress to = new InternetAddress(email);
+				InternetAddress to = new InternetAddress(uemail);
 				msg.setRecipient(Message.RecipientType.TO, to);
 				msg.setSubject(title, "EUC-KR");
 				msg.setContent(Contents, "text/html; charset=EUC-KR");

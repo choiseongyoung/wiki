@@ -65,11 +65,12 @@ function DoLogin(){
 						  <span class="input-group-addon">비밀번호</span>
 						  <input type="password" id="upw" name="upw" class="form-control" placeholder="Password">
 						</div>
-						<div class="container">
+						<div class="text-center">
 							<div class="btn-group">
 								<input type="button" class="btn btn-default" value="로그인 유지" id="FindIdPw" name="FindIdPw">
 								<input type="button" class="btn btn-success" value="로그인"  name="submitbtn" id="loginbutton" onClick="DoLogin()">
-								<input type="button" class="btn btn-default" value="아이디/비밀번호 찾기" id="FindIdPw" name="FindIdPw">
+								<input type="button" class="btn btn-default" value="비밀번호 찾기" id="FindIdPw" name="FindIdPw" 
+								onClick="window.location='00_FindPw.jsp'">
 								<input type="button" class="btn btn-default" value="회원가입" name="delete" onClick="goJoin()" id="joinbutton">
 							</div>
 						</div>
