@@ -38,7 +38,7 @@ if(id == ""){
 		}
 
 		String sql1 = "INSERT INTO member(pw, email, nick, photo, authentiCode) VALUES "
-					+ "('"+pw+"', '"+email+"', '"+nick+"', 'nopicture.jpg', '"+AuthentiCode+"')";
+					+ "(password('"+pw+"'), '"+email+"', '"+nick+"', 'nopicture.jpg', '"+AuthentiCode+"')";
 		int result = stmt.executeUpdate(sql1);
 
 		if(result == 1){ // 회원가입 성공시

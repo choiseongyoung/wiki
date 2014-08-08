@@ -25,7 +25,7 @@ if(uemail == ""){ %>
 		conn = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
 		stmt = conn.createStatement();
 
-		String QueryStr = "select idx, nick, authentiCode from member where email = '" + uemail + "' and pw = '" + upw + "'";
+		String QueryStr = "select idx, nick, authentiCode from member where email = '" + uemail + "' and pw = password('" + upw + "')";
 		rs = stmt.executeQuery(QueryStr);
 
 		if(rs.next()){
