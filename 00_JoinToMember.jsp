@@ -120,7 +120,7 @@ function submitRegitRes(){
 		}
 	}
 }
-function submitRegitform(FormElement){
+function submitRegitform(){
 	var unick = document.getElementById("unick").value;
 	var upw = document.getElementById("upw").value;
 	var upw2 = document.getElementById("upw2").value;
@@ -194,7 +194,7 @@ function submitRegitform(FormElement){
 						<div class="text-center">
 							<div class="btn-group">
 								<input type="button" class="btn btn-success" value="가입하기" 
-									id="submitbtn" onclick="submitRegitform(this)">
+									id="submitbtn" onclick="submitRegitform()">
 								<input type="button" class="btn btn-default" value="뒤로가기" 
 									name="resetbtn" id="resetbtn" onclick="javascript:history.go(-1);">
 							</div>
@@ -206,7 +206,7 @@ function submitRegitform(FormElement){
 				회원가입시 본인의 이메일을 입력해주세요<br>
 				입력된 이메일로 본인인증 메일이 발송됩니다.<br>
 				인증 메일 재발송은 <a href="00_Remailing.jsp">여기</a>를 눌러주세요.<br>
-				(단, 한메일은 발송이 되지 않습니다.)</div>
+				(단, 한메일은 발송이 제한될 수 있습니다.)</div>
 		</div>
 		<script src="//code.jquery.com/jquery.js"></script>
 		<script src="assets/js/bootstrap.js"></script>
