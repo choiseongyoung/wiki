@@ -16,8 +16,8 @@ request.setCharacterEncoding("utf-8");
 //String email = request.getParameter("email");
 //String AuthentiCode = request.getParameter("AuthentiCode");
 
-String email = "rjsqor@gmail.com";
-String AuthentiCode = "asdf";
+String email = request.getParameter("email");
+String AuthentiCode = null;
 Connection conn= null;
 Statement stmt = null;
 ResultSet rs   = null;

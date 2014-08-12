@@ -14,8 +14,8 @@ Connection conn= null;
 Statement stmt = null;
 ResultSet rs   = null;
 
-String uemail = new String(request.getParameter("uemail").getBytes("8859_1"),"euc-kr");
-String unick = new String(request.getParameter("unick").getBytes("8859_1"),"euc-kr");
+String uemail = request.getParameter("uemail");
+String unick = request.getParameter("unick");
 
 try {
     conn = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
@@ -30,7 +30,7 @@ try {
 			for(int i = 0; i<20 ; i++){
 				RandomStr += (char)((Math.random() * 26) + 97);
 			}
-			String QueryStr2 = "UPDATE member SET pw='"+RandomStr+"' WHERE idx='"+rs.getString(1)+"' ";
+			String QueryStr2 = "UPDATE member SET pw=password('"+RandomStr+"') WHERE idx='"+rs.getString(1)+"' ";
 
 		    stmt.executeUpdate(QueryStr2);
 
